@@ -158,4 +158,8 @@
         delete from t_sys_user1 where user_name=#{userName}  and user_acct = #{userAcct}
     </delete>
 
+    <select id="listUserRole" resultType="com.example2.demo.entity.UserInfo" parameterType="com.example2.demo.entity.UserInfo">
+        SELECT IF(sex = 0,'男','女') as sex,user_name,user_acct FROM t_sys_user1 WHERE user_name=#{userName} and is_deleted=0
+    </select>
+
 </mapper>
