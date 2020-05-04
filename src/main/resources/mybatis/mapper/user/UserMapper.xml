@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example2.demo.dao.UserDao">
+    <!--新增用户-->
+    <insert id="saveUser" parameterType="com.example2.demo.entity.UserInfo">
+        insert into t_sys_user1
+            (id,
+            user_acct,
+            user_name,
+            sex,
+            phone,
+            email,
+            id_card,
+            is_deleted,
+            sort_no,
+            gmt_create,
+            create_by,
+            gmt_modified,
+            last_modified_by,
+            version,
+            user_pwd
+            )
+        values
+           (#{id},
+            #{userAcct},
+            #{userName},
+            #{sex},
+            #{phone},
+            #{email},
+            #{idCard},
+            #{isDeleted},
+            0,
+            now(),
+            #{createBy},
+            NOW(),
+            #{createBy},
+            0,
+            #{userPwd})
+    </insert>
+    <!--    <insert id="saveUser" parameterType="com.example2.demo.dao.UserDao">-->
+    <!--    insert into t_sys_user1-->
+    <!--    <select id="listUserInfo" resultType="com.example2.demo.entity.UserInfo" parameterType="com.example2.demo.entity.UserInfo">-->
+    <!--    SELECT sex as 性别,* FROM t_sys_user1 WHERE user_name=#{userName} and is_deleted=0-->
+
+    <select id="listUserInfo" resultType="com.example2.demo.entity.UserInfo"
+            parameterType="com.example2.demo.entity.UserInfo">
+        SELECT IF(sex = 0,'男','女') as sex,user_name,user_acct FROM t_sys_user1 WHERE user_name=#{userName} and is_deleted=0
+    </select>
+
+    <!--    &#45;&#45;                 and sex = #{sex,jdbcType=tinyint}-->
+    <!--    &#45;&#45;          WHERE 1=1-->
+    <!--    &#45;&#45;         user_name=#{userName}-->
+    <!--        <where>-->
+    <!--            <if test="userName!= null and userName!='' " >-->
+    <!--                and user_name = #{userName}-->
+    <!--            </if>-->
+    <!--            <if test="userAcct!= null and userAcct!='' " >-->
+    <!--                and user_acct = #{userAcct}-->
+    <!--            </if>-->
+    <!--            <if test="sex!= null and sex!='' " >-->
+    <!--                and sex = #{sex}-->
+    <!--&#45;&#45;                 and sex = #{sex,jdbcType=tinyint}-->
+    <!--            </if>-->
+    <!--            <if test="phone!= null and phone!='' " >-->
+    <!--                and phone = #{phone}-->
+    <!--            </if>-->
+    <!--            and is_deleted=0-->
+    <!--        </where>-->
+    <!--    id-->
+    <!--    user_acct-->
+    <!--    user_name-->
+    <!--    sex-->
+    <!--    phone-->
+    <!--    email-->
+    <!--    id_card-->
+    <!--    is_deleted-->
+    <!--    sort_no-->
+    <!--    gmt_create-->
+    <!--    create_by-->
+    <!--    gmt_modified-->
+    <!--    last_modified_by-->
+    <!--    version-->
+    <!--    user_pwd-->
+    <!--    <select id="listUserInfoByInfos" resultMap="com.example2.demo.entity.UserInfo" parameterType="com.example2.demo.entity.UserInfo">-->
+    <select id="listUserInfoByInfos" resultType="com.example2.demo.entity.UserInfo"
+            parameterType="com.example2.demo.entity.UserInfo">
+        SELECT * FROM t_sys_user1
+        <where>
+            <if test="userName!= null and userName!='' ">
+                and user_name = #{userName}
+            </if>
+            <if test="userAcct!= null and userAcct!='' ">
+                and user_acct = #{userAcct}
+            </if>
+            <if test=" sex != null and sex!='' ">
+                and sex = #{sex}
+            </if>
+            <if test="phone != null and phone!='' ">
+                and phone = #{phone}
+            </if>
+            and is_deleted = 0
+        </where>
+    </select>
+    <!--    private String userAcct;-->
+    <!--    private String userName;-->
+    <!--    private String sex;-->
+    <!--    private String phone;-->
+    <!--    private String email;-->
+    <!--    private String idCard;-->
+    <!--    private Integer isDeleted;-->
+    <!--    private String sortNo;-->
+    <!--    private Date gmtCreate;-->
+    <!--    private String createBy;-->
+    <!--    private Date gmtModified;-->
+    <!--    private String lastModifiedBy;-->
+    <!--    private Integer version;-->
+    <!--    private String userPwd;-->
+
+    <update id="updateUser" parameterType="com.example2.demo.entity.UserInfo">
+        update t_sys_user1
+        <set>
+            <if test="email != null and email!='' ">
+                email = #{email},
+            </if>
+            <if test="phone != null and phone!='' ">
+                phone = #{phone},
+            </if>
+            <if test="userName!= null and userName!='' ">
+                user_name = #{userName},
+            </if>
+        </set>
+        <where>
+            <if test=" sex != null and sex!='' ">
+                and sex = #{sex}
+            </if>
+            <if test="userAcct!= null and userAcct!='' ">
+                and user_acct = #{userAcct}
+            </if>
+            <if test=" idCard!= null and idCard!='' ">
+                and id_card = #{idCard}
+            </if>
+            and is_deleted = 0
+        </where>
+    </update>
+
+    <update id="deleteUser" parameterType="com.example2.demo.entity.UserInfo">
+        update t_sys_user1 set is_deleted=1 where user_name=#{userName} and user_acct = #{userAcct}
+    </update>
+    <!--    &#45;&#45;         UPDATE account set balance = balance = 50 WHERE id = 1;-->
+
+    <!--    <update id="updateUser" parameterType="com.example2.demo.entity.UserInfo">-->
+    <!--        update t_sys_user1 set is_deleted=1 where user_name=#{userName} and user_acct = #{userAcct}-->
+    <!--    </update>-->
+
+    <delete id="deleteUserReal" parameterType="com.example2.demo.entity.UserInfo">
+        delete from t_sys_user1 where user_name=#{userName}  and user_acct = #{userAcct}
+    </delete>
+
+</mapper>

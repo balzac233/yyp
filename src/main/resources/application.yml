@@ -1,0 +1,31 @@
+spring:
+  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/frame?useUnicode=true&characterEncoding=utf-8&useSSL=false
+#    url: jdbc:mysql://localhost:3306/final1
+    url: jdbc:mysql://localhost:3306/final1?useUnicode=true&characterEncoding=utf-8&useSSL=false
+#    url: jdbc:mysql://39.106.99.124:3306/frame?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+#      type: com.alibaba.druid.pool.DruidDataSource
+      initialSize: 1
+      minIdle: 1
+      maxActive: 20
+      maxWait: 60000
+      validationQuery: select 'x' from dual
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      filters: stat,slf4j
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/**/*Mapper.xml
+  config-location: classpath:mybatis/mybatis-config.xml
+
+#  mybatis:
+#    mapper-locations: classpath:mybatis/mapper/**/*Mapper.xml
+#    config-location: classpath:mybatis/mybatis-config.xml
