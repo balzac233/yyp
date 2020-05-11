@@ -11,6 +11,9 @@ public class practice1 {
         MusicTeacher mt1 = new MusicTeacher("23", "大家music", "男", 18, "硕士", "2班班主任");
         mt1.teachProcedure();
 //        nininiisninfi
+
+//        覅us噢奇偶的端口
+
     }
 }
 
